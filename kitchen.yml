@@ -1,31 +1,47 @@
 ---
 driver:
-  name: vagrant
-
-## The forwarded_port port feature lets you connect to ports on the VM guest via
-## localhost on the host.
-## see also: https://www.vagrantup.com/docs/networking/forwarded_ports.html
-
-#  network:
-#    - ["forwarded_port", {guest: 80, host: 8080}]
+  name: ec2
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR'] %>
+  region: <%= ENV['AWS_REGION'] %>
+  security_group_ids: 
+    - <%= ENV['AWS_SECURITY_GROUP_ID'] %>
+  subnet_id: <%= ENV['AWS_SUBNET_ID'] %>
+  associate_public_ip: true
+  instance_type: t2.micro
+  tags:
+    # Replace YOURNAME and YOURCOMPANY here
+    Name: "<tbagio> Training Node"
+    X-Contact: "Tio Bagio"
+    X-Application: "apac"
+    X-Dept: "sales"
+    X-Customer: "apjcorp"
+    X-Project: "training"
+    X-Termination-Date: "2019-09-20T12:04:30Z"
+    X-TTL: 4
 
 provisioner:
   name: chef_zero
-
-  ## product_name and product_version specifies a specific Chef product and version to install.
-  ## see the Chef documentation for more details: https://docs.chef.io/config_yml_kitchen.html
-  #  product_name: chef
-  #  product_version: 15
+  product_name: chef
+  product_version: 15.12.22
+  client_rb:
+    chef_license: accept
 
 verifier:
   name: inspec
+  reporter: documentation
 
 platforms:
-  - name: ubuntu-18.04
   - name: centos-7
+    transport:
+      username: centos
+      ssh_key: <%= ENV['AWS_KEYPAIR_FILE'] %>
+    driver_config:
+      user_data: ./kitchen_user_data
 
 suites:
   - name: default
+    run_list:
+      - recipe[symantec::default]
     verifier:
       inspec_tests:
         - test/integration/default
