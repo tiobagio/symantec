@@ -30,7 +30,7 @@ when 'windows'
 
     powershell_script 'Install Symantec' do
         code <<-EOH
-        c:\\setup64.exe
+        msiexec /x {9E188836-2176-4CA3-B823-C37C84E32E88} /lv!* c:\uninstallSEP.tx
         EOH
     end
 
