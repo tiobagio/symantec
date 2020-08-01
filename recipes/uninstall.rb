@@ -24,10 +24,6 @@ when 'linux'
 
 when 'windows'
 
-    remote_file "c:/sepsetup64.exe" do
-        source "https://chef-apac.s3-ap-southeast-1.amazonaws.com/setup64.exe"
-    end
-
     batch 'Uninstall Symantec' do
         code <<-EOH
         msiexec /x {9E188836-2176-4CA3-B823-C37C84E32E88} /lv!* c:\\uninstallSEP.txt /passive
