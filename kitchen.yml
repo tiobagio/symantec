@@ -41,7 +41,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[symantec::default]
+      - recipe[symantec::install]
     verifier:
       inspec_tests:
         - test/integration/default

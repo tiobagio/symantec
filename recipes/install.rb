@@ -38,9 +38,6 @@ when 'linux'
       EOH
     end
 
-#    service "symantec" do
-#        action [:enable, :start]
-#    end
 
 when 'windows'
 
@@ -49,14 +46,8 @@ when 'windows'
     end
 
     powershell_script 'Install Symantec' do
-        code <<-EOH
-        c:\\setup64.exe
-        EOH
+        code "c:\\sepsetup64.exe"
     end
 
-    service 'symantec' do
-        service_name 'W3SVC'
-        action [:enable, :start]
-    end
 
 end
