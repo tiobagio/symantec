@@ -25,9 +25,7 @@ when 'linux'
 when 'windows'
 
     batch 'Uninstall Symantec' do
-        code <<-EOH
-        msiexec /x {9E188836-2176-4CA3-B823-C37C84E32E88} /lv!* c:\\uninstallSEP.txt /passive
-        EOH
+        code "msiexec /x {9E188836-2176-4CA3-B823-C37C84E32E88} /lv!* c:\\uninstallSEP.txt /passive"
     end
 
 end
