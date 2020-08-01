@@ -26,7 +26,7 @@ when 'windows'
 
     powershell_script 'Uninstall Symantec' do
         code <<-EOH
-        msiexec /x {9E188836-2176-4CA3-B823-C37C84E32E88} /lv!* c:\\uninstallSEP.tx
+        MsiExec.exe /X{9E188836-2176-4CA3-B823-C37C84E32E88} /lv!* c:\\uninstallSEP.tx
         EOH
     end
 
