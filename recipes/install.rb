@@ -6,11 +6,11 @@
 case node['os']
 when 'linux'
 
-    os_version = `cat /etc/*-release`
-    kernel_version = `rpm -qa |grep kernel-[0-9] |cut -c8-`
-    kernel_version.delete!("\n")
-    package "kernel-headers-#{kernel_version}"
-    package "kernel-devel-#{kernel_version}"
+    #os_version = `cat /etc/*-release`
+    #kernel_version = `rpm -qa |grep kernel-[0-9] |cut -c8-`
+    #kernel_version.delete!("\n")
+    package "kernel-headers-$(uname -r)"
+    package "kernel-devel-$(uname -r)"
     package "unzip"
     package "glibc.i686"
     #package "libgcc.i686"
